@@ -1,14 +1,35 @@
+import 'package:flutter/services.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
+import 'package:respeto/firebase_options.dart';
+import 'package:respeto/providers/dark_theme_provider.dart';
+import 'package:respeto/providers/places_provider.dart';
+import 'package:respeto/screens/intro_screens/splash_screen.dart';
+import './screens/intro_screens/intro_screen.dart';
+import './screens/main_screens/home_screen.dart';
+import './screens/sub_screens/loading_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:respeto/helpers/consts.dart';
+import 'package:respeto/helpers/functions_helper.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:firebase_core/firebase_core.dart';
 
-void main() {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   runApp(const MyApp());
 }
 
 class MyApp extends StatefulWidget {
   const MyApp({super.key});
+  static void setLocale(BuildContext context, Locale locale) {
+    _MyAppState? state = context.findAncestorStateOfType<_MyAppState>();
+    state!.setLocale(locale);
+  }
 
   @override
   State<MyApp> createState() => _MyAppState();
@@ -44,77 +65,251 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      localizationsDelegates: const [
-        AppLocalizations.delegate,
-        GlobalMaterialLocalizations.delegate,
-        GlobalWidgetsLocalizations.delegate,
-        GlobalCupertinoLocalizations.delegate,
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (context) => DarkThemeProvider()),
+        ChangeNotifierProvider(create: (context) => PlacesProvider()),
       ],
-      supportedLocales: const [
-        Locale(
-          'en',
-        ),
-        Locale(
-          'ar',
-        ),
-      ],
-      locale: _locale,
-      title: 'Respeto',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
-      ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      child: Consumer<DarkThemeProvider>(
+          builder: (context, darkThemeConsumer, child) {
+        return MaterialApp(
+          debugShowCheckedModeBanner: false,
+          localizationsDelegates: const [
+            AppLocalizations.delegate,
+            GlobalMaterialLocalizations.delegate,
+            GlobalWidgetsLocalizations.delegate,
+            GlobalCupertinoLocalizations.delegate,
+          ],
+          supportedLocales: const [
+            Locale(
+              'en',
+            ),
+            Locale(
+              'ar',
+            ),
+          ],
+          locale: _locale,
+          title: 'Carrot',
+          theme: ThemeData(
+            floatingActionButtonTheme: FloatingActionButtonThemeData(
+              backgroundColor: primaryColor,
+              foregroundColor: Colors.white,
+              elevation: 0,
+            ),
+            useMaterial3: false,
+            colorScheme: ColorScheme.fromSwatch().copyWith(
+              secondary: darkThemeConsumer.isDark
+                  ? blackTextColor.withOpacity(0.5)
+                  : lightWihteColor,
+            ),
+            highlightColor: Colors.transparent,
+            splashColor: Colors.transparent,
+            appBarTheme: AppBarTheme(
+              systemOverlayStyle: SystemUiOverlayStyle(
+                statusBarColor: darkThemeConsumer.isDark
+                    ? blackTextColor.withOpacity(0.5)
+                    : lightWihteColor,
+                statusBarBrightness: darkThemeConsumer.isDark
+                    ? Brightness.dark
+                    : Brightness.light,
+              ),
+              titleTextStyle: GoogleFonts.tajawal(
+                  color: darkThemeConsumer.isDark ? Colors.white : Colors.black,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 16),
+              backgroundColor: darkThemeConsumer.isDark
+                  ? blackTextColor.withOpacity(0.5)
+                  : lightWihteColor,
+              centerTitle: true,
+              elevation: 0,
+              iconTheme: IconThemeData(
+                  color:
+                      darkThemeConsumer.isDark ? Colors.white : Colors.black),
+            ),
+            primaryColor: primaryColor,
+            scaffoldBackgroundColor: darkThemeConsumer.isDark
+                ? secondaryColor.withOpacity(0.1)
+                : lightWihteColor,
+            textTheme: GoogleFonts.tajawalTextTheme(
+              Theme.of(context).textTheme.apply(
+                    bodyColor: darkThemeConsumer.isDark
+                        ? lightWihteColor
+                        : blackTextColor,
+                    displayColor: darkThemeConsumer.isDark
+                        ? lightWihteColor
+                        : blackTextColor,
+                  ),
+            ),
+            drawerTheme: DrawerThemeData(
+              elevation: 0,
+              backgroundColor:
+                  darkThemeConsumer.isDark ? blackTextColor : lightWihteColor,
+            ),
+            listTileTheme: ListTileThemeData(
+              contentPadding: const EdgeInsets.symmetric(horizontal: 20),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10),
+              ),
+            ),
+            dividerTheme: DividerThemeData(
+              thickness: 0.5,
+              color: darkThemeConsumer.isDark
+                  ? lightWihteColor.withOpacity(0.5)
+                  : blackTextColor.withOpacity(0.5),
+            ),
+            scrollbarTheme: ScrollbarThemeData(
+              thickness: WidgetStateProperty.all<double>(10),
+              trackVisibility: WidgetStateProperty.all<bool>(true),
+            ).copyWith(
+              thumbColor: WidgetStateProperty.all(lightWihteColor),
+              trackColor:
+                  WidgetStateProperty.all(blackTextColor.withOpacity(0.2)),
+            ),
+            tabBarTheme: TabBarTheme(
+                labelColor: Colors.white,
+                unselectedLabelColor: Colors.grey,
+                labelStyle: GoogleFonts.almarai(),
+                unselectedLabelStyle: GoogleFonts.almarai(),
+                indicator: BoxDecoration(
+                  color: primaryColor,
+                  borderRadius: BorderRadius.circular(7),
+                ),
+                indicatorSize: TabBarIndicatorSize.tab),
+            progressIndicatorTheme: const ProgressIndicatorThemeData(
+              color: primaryColor,
+            ),
+            inputDecorationTheme: InputDecorationTheme(
+              fillColor: darkThemeConsumer.isDark
+                  ? blackTextColor.withOpacity(0.5)
+                  : lightWihteColor.withOpacity(0.1),
+              filled: true,
+              isDense: false,
+              border: OutlineInputBorder(
+                  borderSide: const BorderSide(
+                    color: Colors.transparent,
+                    width: 0,
+                  ),
+                  borderRadius: BorderRadius.circular(10)),
+              focusedErrorBorder: OutlineInputBorder(
+                  borderSide: const BorderSide(
+                    color: Colors.red,
+                    width: 1,
+                  ),
+                  borderRadius: BorderRadius.circular(10)),
+              errorBorder: OutlineInputBorder(
+                  borderSide: const BorderSide(
+                    color: Colors.red,
+                    width: 1,
+                  ),
+                  borderRadius: BorderRadius.circular(10)),
+              enabledBorder: OutlineInputBorder(
+                  borderSide: BorderSide(
+                    color: primaryColor.withOpacity(0.2),
+                    width: 1,
+                  ),
+                  borderRadius: BorderRadius.circular(10)),
+              focusedBorder: OutlineInputBorder(
+                  borderSide: BorderSide(
+                    color: primaryColor.withOpacity(0.5),
+                    width: 1,
+                  ),
+                  borderRadius: BorderRadius.circular(10)),
+              disabledBorder: OutlineInputBorder(
+                  borderSide: BorderSide(
+                    color: primaryColor.withOpacity(0.2),
+                    width: 1,
+                  ),
+                  borderRadius: BorderRadius.circular(10)),
+              contentPadding: const EdgeInsets.symmetric(horizontal: 15),
+              hintStyle: TextStyle(
+                fontWeight: FontWeight.w400,
+                fontSize: 14,
+                color: blackTextColor.withOpacity(0.5),
+              ),
+              errorStyle: const TextStyle(
+                fontSize: 9,
+                color: Colors.red,
+              ),
+            ),
+            checkboxTheme: CheckboxThemeData(
+              fillColor: WidgetStateProperty.all(primaryColor),
+              checkColor: WidgetStateProperty.all(darkThemeConsumer.isDark
+                  ? blackTextColor.withOpacity(0.5)
+                  : lightWihteColor),
+              overlayColor: WidgetStateProperty.all(primaryColor),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(5),
+                side: BorderSide(
+                  color: darkThemeConsumer.isDark
+                      ? blackTextColor.withOpacity(0.5)
+                      : lightWihteColor,
+                  width: 1,
+                ),
+              ),
+            ),
+            bottomNavigationBarTheme: BottomNavigationBarThemeData(
+              selectedItemColor: primaryColor,
+              unselectedItemColor: darkThemeConsumer.isDark
+                  ? lightWihteColor
+                  : blackTextColor.withOpacity(0.5),
+              backgroundColor: darkThemeConsumer.isDark
+                  ? blackTextColor.withOpacity(0.5)
+                  : blackTextColor.withOpacity(0.1),
+              selectedLabelStyle: const TextStyle(
+                  color: primaryColor,
+                  fontSize: 10,
+                  fontWeight: FontWeight.w600),
+              unselectedLabelStyle: const TextStyle(
+                  color: Colors.grey,
+                  fontSize: 10,
+                  fontWeight: FontWeight.w600),
+              showUnselectedLabels: true,
+              elevation: 0,
+            ),
+          ),
+          home: SplashScreen(),
+        );
+      }),
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
-
-  final String title;
+class ScreenRouter extends StatefulWidget {
+  const ScreenRouter({super.key});
 
   @override
-  State<MyHomePage> createState() => _MyHomePageState();
+  State<ScreenRouter> createState() => _ScreenRouterState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
+class _ScreenRouterState extends State<ScreenRouter> {
+  bool? firstLaunch;
+  bool checking = true;
+  @override
+  initState() {
+    getFirst();
 
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
+    super.initState();
+    getFirst();
+  }
+
+  getFirst() async {
+    firstLaunch = await getBoolFromPrefs('firstLaunch').then((value) {
+      setState(() {
+        checking = false;
+      });
+      return value;
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: Text(widget.title),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headlineMedium,
-            ),
-          ],
-        ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ),
+    return AnimatedSwitcher(
+      duration: animationDuration,
+      child: checking == true
+          ? const LoadingScreen()
+          : firstLaunch == true || firstLaunch == null
+              ? const IntroScreen()
+              : const HomeScreen(),
     );
   }
 }

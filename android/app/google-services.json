@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1055298164981",
+    "project_id": "respeto-challenge",
+    "storage_bucket": "respeto-challenge.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1055298164981:android:dd09dfe7c3ac62d39dcdbc",
+        "android_client_info": {
+          "package_name": "com.example.respeto"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCvh2FG0lJMszfxOXiSb7qitAMDSplDdz8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

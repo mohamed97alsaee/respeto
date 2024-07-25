@@ -13,7 +13,7 @@ class Api {
   Future<Response> get(String url, Map body) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
 
-    String? localCode = prefs.getString('langCode');
+    String? localCode = prefs.getString('langCode') ?? "en";
     DateTime dt = DateTime.now();
 
     if (kDebugMode) {
@@ -47,8 +47,8 @@ class Api {
     Map body,
   ) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    // String? localCode = prefs.getString('langCode');
-    String? localCode = prefs.getString('langCode');
+    // String? localCode = prefs.getString('langCode')?? "en";
+    String? localCode = prefs.getString('langCode') ?? "en";
     DateTime dt = DateTime.now();
     if (kDebugMode) {
       print(
@@ -82,8 +82,8 @@ class Api {
     Map body,
   ) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    // String? localCode = prefs.getString('langCode');
-    String? localCode = prefs.getString('langCode');
+    // String? localCode = prefs.getString('langCode')?? "en";
+    String? localCode = prefs.getString('langCode') ?? "en";
     DateTime dt = DateTime.now();
     if (kDebugMode) {
       print(
@@ -115,8 +115,8 @@ class Api {
     Map body,
   ) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    // String? localCode = prefs.getString('langCode');
-    String? localCode = prefs.getString('langCode');
+    // String? localCode = prefs.getString('langCode')?? "en";
+    String? localCode = prefs.getString('langCode') ?? "en";
     DateTime dt = DateTime.now();
     if (kDebugMode) {
       print(
@@ -146,7 +146,7 @@ class Api {
   Future<Response> upload(File file) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
 
-    String? localCode = prefs.getString('langCode');
+    String? localCode = prefs.getString('langCode') ?? "en";
     DateTime dt = DateTime.now();
     var postUri = Uri.parse(
         "$baseUrl/user/uploader?lang=$localCode&timezone=${dt.timeZoneName}");
