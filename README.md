@@ -1,16 +1,9 @@
-# respeto
 
-A new Flutter project.
+Hello spitar team here is my code which was dveloped in total 12 hours of work
 
-## Getting Started
+after clone this code just run this command in terminal "flutter pub get"
 
-This project is a starting point for a Flutter application.
+and run the code directly and have fun 🙏🏼.
 
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+Best Regards 
+Mohammed Alsaee.
