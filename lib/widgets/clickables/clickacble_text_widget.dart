@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 
 import '../../../../providers/dark_theme_provider.dart';
 import '../../helpers/consts.dart';
+import '../../helpers/functions_helper.dart';
 
 class ClickableText extends StatefulWidget {
   const ClickableText({
@@ -44,7 +45,7 @@ class _ClickableTextState extends State<ClickableText> {
               fontSize: widget.fontSize,
               fontWeight: FontWeight.w600,
               color: themeListener.isDark && !widget.useColors
-                  ? lightWihteColor.withOpacity(widget.enabled ? 1 : 0.3)
+                  ? withOpacity(lightWihteColor, widget.enabled ? 1 : 0.3)
                   : widget.color,
               decoration:
                   widget.withUnderline ? TextDecoration.underline : null),

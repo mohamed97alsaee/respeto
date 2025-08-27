@@ -2,10 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:respeto/helpers/consts.dart';
+import 'package:respeto/helpers/functions_helper.dart';
 import 'package:respeto/main.dart';
 import 'package:respeto/widgets/clickables/main_button.dart';
 import '../../providers/dark_theme_provider.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:respeto/l10n/generated/app_localizations.dart';
 
 class SingleIntroScreen extends StatelessWidget {
   const SingleIntroScreen({
@@ -63,8 +64,8 @@ class SingleIntroScreen extends StatelessWidget {
             Icon(
               icon,
               color: themeListener.isDark
-                  ? lightWihteColor.withOpacity(0.7)
-                  : blackTextColor.withOpacity(0.7),
+                  ? withOpacity(lightWihteColor, 0.7)
+                  : withOpacity(blackTextColor, 0.7),
               size: size.width * 0.2,
             ),
             SizedBox(

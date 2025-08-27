@@ -4,8 +4,8 @@ import 'package:google_maps_webservice/places.dart';
 import 'package:provider/provider.dart';
 import 'package:rate_in_stars/rate_in_stars.dart';
 import 'package:respeto/helpers/consts.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:respeto/helpers/functions_helper.dart';
+import 'package:respeto/l10n/generated/app_localizations.dart';
 import 'package:respeto/providers/dark_theme_provider.dart';
 import 'package:respeto/widgets/clickables/main_button.dart';
 
@@ -22,12 +22,12 @@ class ResturantCard extends StatelessWidget {
         child: Container(
           decoration: BoxDecoration(
             color:
-                lightWihteColor.withOpacity(darkThemeConsumer.isDark ? 0.1 : 1),
+                withOpacity(lightWihteColor, darkThemeConsumer.isDark ? 0.1 : 1),
             borderRadius: BorderRadius.circular(16),
             boxShadow: [
               if (!darkThemeConsumer.isDark)
                 BoxShadow(
-                  color: Colors.grey.withOpacity(0.2),
+                  color: withOpacity(Colors.grey, 0.2),
                   spreadRadius: 5,
                   blurRadius: 7,
                   offset: const Offset(0, 3),
@@ -54,7 +54,7 @@ class ResturantCard extends StatelessWidget {
                           return child;
                         } else {
                           return Container(
-                            color: primaryColor.withOpacity(0.1),
+                            color: withOpacity(primaryColor, 0.1),
                             width: size.width * 0.9,
                             height: size.height * 0.25,
                             child: const Center(
@@ -66,7 +66,7 @@ class ResturantCard extends StatelessWidget {
                       errorBuilder: (BuildContext context, Object error,
                               StackTrace? stackTrace) =>
                           Container(
-                              color: primaryColor.withOpacity(0.1),
+                              color: withOpacity(primaryColor, 0.1),
                               width: size.width * 0.9,
                               height: size.height * 0.25,
                               child: Center(child: const Icon(Icons.error))),
@@ -103,8 +103,8 @@ class ResturantCard extends StatelessWidget {
                       Container(
                         decoration: BoxDecoration(
                           color: resurantPlaceMode.openingHours!.openNow
-                              ? Colors.green.withOpacity(0.2)
-                              : Colors.red.withOpacity(0.2),
+                              ? withOpacity(Colors.green, 0.2)
+                              : withOpacity(Colors.red, 0.2),
                           borderRadius: BorderRadius.circular(8),
                         ),
                         child: Padding(

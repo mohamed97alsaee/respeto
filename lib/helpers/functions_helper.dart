@@ -1,6 +1,7 @@
 import 'package:geolocator/geolocator.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:flutter/material.dart';
 
 setStringToPrefs(String key, String value) async {
   SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -54,4 +55,14 @@ class MapUtils {
       throw 'Could not open the map.';
     }
   }
+}
+
+/// Helper function to create a color with opacity using modern Flutter approach
+Color withOpacity(Color color, double opacity) {
+  return Color.fromRGBO(
+    (color.r * 255).round(),
+    (color.g * 255).round(),
+    (color.b * 255).round(),
+    opacity,
+  );
 }

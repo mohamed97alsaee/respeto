@@ -9,7 +9,7 @@ import 'package:respeto/providers/dark_theme_provider.dart';
 import 'package:respeto/screens/main_screens/home_screen.dart';
 import 'package:respeto/widgets/clickables/clickacble_text_widget.dart';
 import 'package:respeto/widgets/static/single_intro_screen.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:respeto/l10n/generated/app_localizations.dart';
 
 class IntroScreen extends StatefulWidget {
   const IntroScreen({super.key});
@@ -41,7 +41,7 @@ class _IntroScreenState extends State<IntroScreen> {
                 padding: const EdgeInsets.symmetric(horizontal: 12),
                 child: ClickableText(
                     text: AppLocalizations.of(context)!.skip,
-                    color: blackTextColor.withOpacity(0.5),
+                    color: withOpacity(blackTextColor, 0.5),
                     onPressed: () {
                       Navigator.pushAndRemoveUntil(
                           context,
@@ -93,11 +93,11 @@ class _IntroScreenState extends State<IntroScreen> {
               activeColor:
                   darkThemeConsumer.isDark ? lightWihteColor : primaryColor,
               color: darkThemeConsumer.isDark
-                  ? lightWihteColor.withOpacity(0.5)
-                  : primaryColor.withOpacity(0.5),
+                  ? withOpacity(lightWihteColor, 0.5)
+                  : withOpacity(primaryColor, 0.5),
             ),
             globalBackgroundColor: darkThemeConsumer.isDark
-                ? blackTextColor.withOpacity(0.5)
+                ? withOpacity(blackTextColor, 0.5)
                 : lightWihteColor,
             rawPages: [
               SingleIntroScreen(

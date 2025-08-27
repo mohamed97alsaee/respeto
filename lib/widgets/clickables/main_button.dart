@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:tap_debouncer/tap_debouncer.dart';
 
 import '../../helpers/consts.dart';
+import '../../helpers/functions_helper.dart';
 import '../../providers/dark_theme_provider.dart';
 
 class MainButton extends StatefulWidget {
@@ -91,7 +92,7 @@ class _MainButtonState extends State<MainButton> {
                   decoration: BoxDecoration(
                     color: widget.isActive
                         ? widget.btnColor
-                        : widget.btnColor.withOpacity(0.2),
+                        : withOpacity(widget.btnColor, 0.2),
                     borderRadius: BorderRadius.circular(widget.radius),
                     border: widget.withBorder
                         ? Border.all(

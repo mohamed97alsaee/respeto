@@ -13,7 +13,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:respeto/helpers/consts.dart';
 import 'package:respeto/helpers/functions_helper.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:respeto/l10n/generated/app_localizations.dart';
 import 'package:firebase_core/firebase_core.dart';
 
 Future<void> main() async {
@@ -99,7 +99,7 @@ class _MyAppState extends State<MyApp> {
             useMaterial3: false,
             colorScheme: ColorScheme.fromSwatch().copyWith(
               secondary: darkThemeConsumer.isDark
-                  ? blackTextColor.withOpacity(0.5)
+                  ? withOpacity(blackTextColor, 0.5)
                   : lightWihteColor,
             ),
             highlightColor: Colors.transparent,
@@ -107,7 +107,7 @@ class _MyAppState extends State<MyApp> {
             appBarTheme: AppBarTheme(
               systemOverlayStyle: SystemUiOverlayStyle(
                 statusBarColor: darkThemeConsumer.isDark
-                    ? blackTextColor.withOpacity(0.5)
+                    ? withOpacity(blackTextColor, 0.5)
                     : lightWihteColor,
                 statusBarBrightness: darkThemeConsumer.isDark
                     ? Brightness.dark
@@ -118,7 +118,7 @@ class _MyAppState extends State<MyApp> {
                   fontWeight: FontWeight.bold,
                   fontSize: 16),
               backgroundColor: darkThemeConsumer.isDark
-                  ? blackTextColor.withOpacity(0.5)
+                  ? withOpacity(blackTextColor, 0.5)
                   : lightWihteColor,
               centerTitle: true,
               elevation: 0,
@@ -128,7 +128,7 @@ class _MyAppState extends State<MyApp> {
             ),
             primaryColor: primaryColor,
             scaffoldBackgroundColor: darkThemeConsumer.isDark
-                ? secondaryColor.withOpacity(0.1)
+                ? withOpacity(secondaryColor, 0.1)
                 : lightWihteColor,
             textTheme: GoogleFonts.tajawalTextTheme(
               Theme.of(context).textTheme.apply(
@@ -154,8 +154,8 @@ class _MyAppState extends State<MyApp> {
             dividerTheme: DividerThemeData(
               thickness: 0.5,
               color: darkThemeConsumer.isDark
-                  ? lightWihteColor.withOpacity(0.5)
-                  : blackTextColor.withOpacity(0.5),
+                  ? withOpacity(lightWihteColor, 0.5)
+                  : withOpacity(blackTextColor, 0.5),
             ),
             scrollbarTheme: ScrollbarThemeData(
               thickness: WidgetStateProperty.all<double>(10),
@@ -163,9 +163,9 @@ class _MyAppState extends State<MyApp> {
             ).copyWith(
               thumbColor: WidgetStateProperty.all(lightWihteColor),
               trackColor:
-                  WidgetStateProperty.all(blackTextColor.withOpacity(0.2)),
+                  WidgetStateProperty.all(withOpacity(blackTextColor, 0.2)),
             ),
-            tabBarTheme: TabBarTheme(
+            tabBarTheme: TabBarThemeData(
                 labelColor: Colors.white,
                 unselectedLabelColor: Colors.grey,
                 labelStyle: GoogleFonts.almarai(),
@@ -180,8 +180,8 @@ class _MyAppState extends State<MyApp> {
             ),
             inputDecorationTheme: InputDecorationTheme(
               fillColor: darkThemeConsumer.isDark
-                  ? blackTextColor.withOpacity(0.5)
-                  : lightWihteColor.withOpacity(0.1),
+                  ? withOpacity(blackTextColor, 0.5)
+                  : withOpacity(lightWihteColor, 0.1),
               filled: true,
               isDense: false,
               border: OutlineInputBorder(
@@ -204,19 +204,19 @@ class _MyAppState extends State<MyApp> {
                   borderRadius: BorderRadius.circular(10)),
               enabledBorder: OutlineInputBorder(
                   borderSide: BorderSide(
-                    color: primaryColor.withOpacity(0.2),
+                    color: withOpacity(primaryColor, 0.2),
                     width: 1,
                   ),
                   borderRadius: BorderRadius.circular(10)),
               focusedBorder: OutlineInputBorder(
                   borderSide: BorderSide(
-                    color: primaryColor.withOpacity(0.5),
+                    color: withOpacity(primaryColor, 0.5),
                     width: 1,
                   ),
                   borderRadius: BorderRadius.circular(10)),
               disabledBorder: OutlineInputBorder(
                   borderSide: BorderSide(
-                    color: primaryColor.withOpacity(0.2),
+                    color: withOpacity(primaryColor, 0.2),
                     width: 1,
                   ),
                   borderRadius: BorderRadius.circular(10)),
@@ -224,7 +224,7 @@ class _MyAppState extends State<MyApp> {
               hintStyle: TextStyle(
                 fontWeight: FontWeight.w400,
                 fontSize: 14,
-                color: blackTextColor.withOpacity(0.5),
+                color: withOpacity(blackTextColor, 0.5),
               ),
               errorStyle: const TextStyle(
                 fontSize: 9,
@@ -234,14 +234,14 @@ class _MyAppState extends State<MyApp> {
             checkboxTheme: CheckboxThemeData(
               fillColor: WidgetStateProperty.all(primaryColor),
               checkColor: WidgetStateProperty.all(darkThemeConsumer.isDark
-                  ? blackTextColor.withOpacity(0.5)
+                  ? withOpacity(blackTextColor, 0.5)
                   : lightWihteColor),
               overlayColor: WidgetStateProperty.all(primaryColor),
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(5),
                 side: BorderSide(
                   color: darkThemeConsumer.isDark
-                      ? blackTextColor.withOpacity(0.5)
+                      ? withOpacity(blackTextColor, 0.5)
                       : lightWihteColor,
                   width: 1,
                 ),
@@ -251,10 +251,10 @@ class _MyAppState extends State<MyApp> {
               selectedItemColor: primaryColor,
               unselectedItemColor: darkThemeConsumer.isDark
                   ? lightWihteColor
-                  : blackTextColor.withOpacity(0.5),
+                  : withOpacity(blackTextColor, 0.5),
               backgroundColor: darkThemeConsumer.isDark
-                  ? blackTextColor.withOpacity(0.5)
-                  : blackTextColor.withOpacity(0.1),
+                  ? withOpacity(blackTextColor, 0.5)
+                  : withOpacity(blackTextColor, 0.1),
               selectedLabelStyle: const TextStyle(
                   color: primaryColor,
                   fontSize: 10,

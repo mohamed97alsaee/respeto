@@ -1,4 +1,5 @@
 import 'package:respeto/helpers/consts.dart';
+import 'package:respeto/helpers/functions_helper.dart';
 
 import '../../providers/dark_theme_provider.dart';
 
@@ -58,8 +59,8 @@ class HeaderWidget extends StatelessWidget {
               subtitle.toString(),
               style: TextStyle(
                 color: darkThemeConsumer.isDark
-                    ? lightWihteColor.withOpacity(0.9)
-                    : blackTextColor.withOpacity(0.9),
+                    ? withOpacity(lightWihteColor, 0.9)
+                    : withOpacity(blackTextColor, 0.9),
                 fontSize: 14,
                 fontWeight: FontWeight.bold,
               ),

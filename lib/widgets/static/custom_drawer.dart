@@ -4,7 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:respeto/helpers/consts.dart';
 import 'package:respeto/main.dart';
 import 'package:respeto/providers/dark_theme_provider.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:respeto/l10n/generated/app_localizations.dart';
 
 class CustomDrawer extends StatelessWidget {
   const CustomDrawer({super.key});

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:respeto/helpers/consts.dart';
+import 'package:respeto/helpers/functions_helper.dart';
 import 'package:shimmer/shimmer.dart';
 
 class ShimmerWidget extends StatelessWidget {
@@ -25,13 +26,13 @@ class ShimmerWidget extends StatelessWidget {
       padding: EdgeInsets.symmetric(
           horizontal: horizontalPading, vertical: verticalPading),
       child: Shimmer.fromColors(
-          baseColor: primaryColor.withOpacity(0.5),
-          highlightColor: Colors.white.withOpacity(0.5),
+          baseColor: withOpacity(primaryColor, 0.5),
+          highlightColor: withOpacity(Colors.white, 0.5),
           enabled: true,
           child: Container(
             decoration: BoxDecoration(
                 border: Border.all(color: Colors.black12, width: 0.5),
-                color: primaryColor.withOpacity(0.3),
+                color: withOpacity(primaryColor, 0.3),
                 borderRadius: BorderRadius.circular(radius)),
             width: width,
             height: height,
